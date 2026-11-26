@@ -1,4 +1,5 @@
 import { api } from "../api/workbench.js";
+import { archivePanel } from "../components/common/archive.js";
 import { errorText, field } from "../components/common/fields.js";
 import { empty, pageHeading, section } from "../components/common/panel.js";
 import { resultTable } from "../components/common/table.js";
@@ -22,9 +23,10 @@ function signature(review) {
 export async function evidencePage(config, user, route) {
   const runs = (await api.runs()).filter(item => item.status === "done");
   const run = route.id ? await api.run(route.id) : runs[0];
-  if (!run?.result) return el("div", {class: "page"},
+  if (!run?.result) return el("div", {class: "page evidence"},
     pageHeading(config.modules[3], null), empty("成功执行一个批次后可以查看、签核和下载证据。"),
-    el("a", {href: "#runs"}, config.modules[2]));
+    el("a", {href: "#runs"}, config.modules[2]),
+    archivePanel(user));
 
   const review = await api.review(run.id);
   const issue = errorText();
@@ -53,5 +55,6 @@ export async function evidencePage(config, user, route) {
     el("dl", {class: "metrics"}, Object.entries(run.result.metrics).map(([label, value]) =>
       el("div", {}, el("dt", {}, label), el("dd", {}, cell(value))))),
     section("业务结果明细", run.result.rows.length ? resultTable(run.result.rows) : empty("此批次无明细。")),
-    section("复核签署", signing));
+    section("复核签署", signing),
+    archivePanel(user));
 }

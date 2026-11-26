@@ -4,6 +4,7 @@ from sqlalchemy.dialects.mysql import insert as mysql_insert
 from sqlalchemy.dialects.postgresql import insert as pg_insert
 
 from migrations.v001_workbench import upgrade
+from migrations.v002_archives import upgrade as upgrade_archives
 from src.config.resources import engine
 from src.config.settings import DEMO_PASSWORD
 from src.constants.roles import Role
@@ -24,6 +25,7 @@ def insert_new(db, table, key, values):
 def setup_schema():
     with engine.begin() as db:
         upgrade(db)
+        upgrade_archives(db)
 
 
 def seed():

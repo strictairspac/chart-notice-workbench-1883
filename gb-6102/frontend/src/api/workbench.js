@@ -12,4 +12,10 @@ export const api = {
   submitReview: (id, data) => request(`/runs/${id}/review`, {method: "POST", data}),
   export: id => request(`/runs/${id}/export`, {raw: true}),
   audit: () => request("/audit", {signal: AbortSignal.timeout(5000)}),
+  archives: () => request("/archives"),
+  archive: id => request(`/archives/${id}`),
+  uploadArchive: data => request("/archives", {method: "POST", data}),
+  resumeArchive: id => request(`/archives/${id}/resume`, {method: "POST"}),
+  receipts: params => request(`/archives/receipts?${new URLSearchParams(params)}`),
+  resolveReceipt: (id, decision) => request(`/archives/receipts/${id}/resolve`, {method: "POST", data: {decision}}),
 };

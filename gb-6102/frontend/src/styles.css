@@ -98,6 +98,13 @@ td a[aria-current=true] { font-weight: 750; }
 .evidence select { width: fit-content; max-width: 100%; }
 .signature { border-left: .2rem solid var(--accent); padding-left: .85rem; }
 .signature p { margin: .35rem 0; overflow-wrap: anywhere; }
+.archive-upload { display: grid; gap: .85rem; margin: 1.15rem 0; }
+.archive-search { display: flex; flex-wrap: wrap; align-items: end; gap: .75rem; margin: 1.15rem 0; }
+.archive-search .field { flex: 1 1 12rem; }
+.import-line { display: flex; flex-wrap: wrap; align-items: center; gap: .75rem; }
+.import-line p { color: var(--muted); }
+.state-restored, .state-incomplete { color: var(--accent); }
+.state-pending, .state-failed, .state-running { color: var(--signal); }
 @media (max-width: 1050px) {
   .shell { grid-template-columns: minmax(10rem, 15rem) minmax(0, 1fr); }
   .split { grid-template-columns: 1fr; }
